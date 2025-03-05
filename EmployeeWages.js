@@ -14,6 +14,13 @@ function checkPresentOrAbsent(){
 function calculateDailyEmployeeWage(){
     let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
     let wagePerHour = 20;
+    let totalWorkingHours = getWorkingHours(workingTime);
+    return wagePerHour * totalWorkingHours;
+}
+
+// UC3
+// function to calculate working hours
+function getWorkingHours(workingTime) {
     let totalWorkingHours;
     switch(workingTime) {
         case "No Time" :
@@ -26,11 +33,11 @@ function calculateDailyEmployeeWage(){
             totalWorkingHours = 8;
             break;       
     }
-    return wagePerHour * totalWorkingHours;
+    return totalWorkingHours;
 }
 
 // UC1
 checkPresentOrAbsent();
 
-// UC2
+// UC2 And UC3
 console.log("$" + calculateDailyEmployeeWage());
