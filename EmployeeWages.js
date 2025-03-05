@@ -49,6 +49,22 @@ function wageForAMonth(workingDays) {
     console.log(`Total Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
 } 
 
+// UC5
+// function to Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
+function wageTillACondition() {
+    let numberOfDays=0;
+    let totalWorkingHours=0;
+
+    while(numberOfDays<20 && totalWorkingHours<=160){
+        let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
+        totalWorkingHours += getWorkingHours(workingTime);
+        numberOfDays++;
+    }
+    let totalWage = totalWorkingHours * 20; // assuming wage per hour is $20
+
+    console.log(`UC5 - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
+}
+
 // UC1
 checkPresentOrAbsent();
 
@@ -57,3 +73,6 @@ console.log("$" + calculateDailyEmployeeWage());
 
 // UC4
 wageForAMonth(20); // assuming 20 working days in the month
+
+// UC5
+wageTillACondition();
