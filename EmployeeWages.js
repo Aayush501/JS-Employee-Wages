@@ -36,8 +36,24 @@ function getWorkingHours(workingTime) {
     return totalWorkingHours;
 }
 
+// UC4
+// function to calculate total wages for a month
+function wageForAMonth(workingDays) {
+    let totalWorkingHours = 0;
+    for(let i=1; i<=workingDays; i++) {
+        let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
+        totalWorkingHours += getWorkingHours(workingTime);
+    }
+
+    let totalWage = totalWorkingHours * 20; // assuming wage per hour is $20
+    console.log(`Total Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
+} 
+
 // UC1
 checkPresentOrAbsent();
 
 // UC2 And UC3
 console.log("$" + calculateDailyEmployeeWage());
+
+// UC4
+wageForAMonth(20); // assuming 20 working days in the month
