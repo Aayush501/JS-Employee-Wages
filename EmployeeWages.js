@@ -69,6 +69,7 @@ function wageTillACondition() {
     console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
     console.log(`UC7(B) : ${mapOfDayAndWage}`);
+    console.log(`UC7(C) : ${showFullTime(mapOfDayAndWage)}`);
 }
 
 // UC7(A)
@@ -87,6 +88,15 @@ let day=0;
 function mapDayWithWage(wage) {
     day++;
     return day + " = " + wage;
+}
+
+// UC7(C)
+// function to filter days where the wages were of full time
+function showFullTime(empWagesArr) {
+    let filtered = empWagesArr.filter((val) => {
+        return (val.includes("160"));
+    });
+    return filtered;
 }
 
 
