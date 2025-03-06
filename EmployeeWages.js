@@ -54,15 +54,19 @@ function wageForAMonth(workingDays) {
 function wageTillACondition() {
     let numberOfDays=0;
     let totalWorkingHours=0;
+    let empWagesArr = new Array(); // array to store daily wages
 
     while(numberOfDays<20 && totalWorkingHours<=160){
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
-        totalWorkingHours += getWorkingHours(workingTime);
+        let dayHours = getWorkingHours(workingTime);
+        totalWorkingHours += dayHours;
+        empWagesArr.push(dayHours * 20); // UC6
         numberOfDays++;
     }
     let totalWage = totalWorkingHours * 20; // assuming wage per hour is $20
 
     console.log(`UC5 - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
+    console.log(`UC6 - Daily wages: ${empWagesArr}`);
 }
 
 // UC1
