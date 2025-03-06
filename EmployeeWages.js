@@ -49,7 +49,7 @@ function wageForAMonth(workingDays) {
     console.log(`Total Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
 } 
 
-// UC5
+// UC5 and UC6
 // function to Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
 function wageTillACondition() {
     let numberOfDays=0;
@@ -60,13 +60,23 @@ function wageTillACondition() {
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
         let dayHours = getWorkingHours(workingTime);
         totalWorkingHours += dayHours;
-        empWagesArr.push(dayHours * 20); // UC6
+        empWagesArr.push(dayHours * 20); // UC6 // assuming wage per hour is $20
         numberOfDays++;
     }
-    let totalWage = totalWorkingHours * 20; // assuming wage per hour is $20
+    let totalWage = totalWageCalculator(empWagesArr); // UC7
 
-    console.log(`UC5 - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
+    console.log(`UC5 & UC7 - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
+}
+
+// UC7
+// function to calculator using daily wages array
+function totalWageCalculator(empWagesArr) {
+    let totalWage=0;
+    empWagesArr.forEach(element => {
+        totalWage += element;
+    });
+    return totalWage;
 }
 
 // UC1
@@ -78,5 +88,5 @@ console.log("$" + calculateDailyEmployeeWage());
 // UC4
 wageForAMonth(20); // assuming 20 working days in the month
 
-// UC5
+// UC5 and UC6
 wageTillACondition();
