@@ -73,6 +73,7 @@ function wageTillACondition() {
     console.log(`UC7(C) - All Full Time Wages: ${fullTimeArr}`);
     console.log(`UC7(D) - First Time Full Time Wage: ${showFirstFullTime(mapOfDayAndWage)}`);
     console.log(`UC7(E) - Validating full time wages array: ${fullTimeArr.every(validateFullTimeWage)}`);
+    console.log(`UC7(F) - Checking if there are some part time wages: ${mapOfDayAndWage.some(checkForPartTimeWage)}`);
 }
 
 // UC7(A)
@@ -115,6 +116,12 @@ function showFirstFullTime(empWagesArr) {
 // function to check if every element of full time wage array is truely holding full time wage
 function validateFullTimeWage(wage) {
     return wage.includes("160");
+}
+
+// UC7(F)
+// function to check if there is any part time wage
+function checkForPartTimeWage(wage) {
+    return wage.includes("80");
 }
 
 
