@@ -55,20 +55,23 @@ function wageTillACondition() {
     let numberOfDays=0;
     let totalWorkingHours=0;
     let empWagesArr = new Array(); // array to store daily wages
-    
+    let empWorkingHourArr = new Array(); // array to store daily working hours
     let empWagesMap = new Map(); // map to Store the Day and the Daily Wage // UC8
+    let dailyHourMap = new Map(); // map to store daily hours
 
     while(numberOfDays<20 && totalWorkingHours<=160){
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
         let dayHours = getWorkingHours(workingTime);
-        totalWorkingHours += dayHours;
         empWagesArr.push(dayHours * 20); // UC6 // assuming wage per hour is $20
+        empWorkingHourArr.push(dayHours); // UC9
         numberOfDays++;
         empWagesMap.set(numberOfDays, dayHours * 20); // UC8
+        dailyHourMap.set(numberOfDays, dayHours); // UC9
     }
-    let totalWage = totalWageCalculator(empWagesArr); // UC7(A)
+    let totalWage = totalWageCalculator(empWagesArr); // UC7(A) // UC9 -> totalWageCalculator(empWagesArr) demonstrates arrow function
     let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
     let fullTimeArr = showFullTime(mapOfDayAndWage); // UC7(C)
+    totalWorkingHours = empWorkingHourArr.reduce((daily, total) => total+daily, 0); // UC9
 
     console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
@@ -79,6 +82,21 @@ function wageTillACondition() {
     console.log(`UC7(F) - Checking if there are some part time wages: ${mapOfDayAndWage.some(checkForPartTimeWage)}`);
     console.log(`UC7(G) - Finding the number of days employee worked: ${numberOfDays}`); 
     console.log(empWagesMap); // UC8
+
+    // UC9 -> Show the full workings days, part working days and no working days
+    let fullTimeWorkingDays = new Array();
+    let partTimeWorkingDays = new Array();
+    let noTimeWorkingDays = new Array();
+
+    dailyHourMap.forEach((val, key) => {
+        if(val == 8) fullTimeWorkingDays.push(key);
+        else if(val == 4) partTimeWorkingDays.push(key);
+        else noTimeWorkingDays.push(key);
+    });
+
+    console.log(`Full Time Working Days: ${fullTimeWorkingDays}`);
+    console.log(`Part Time Working Days: ${partTimeWorkingDays}`);
+    console.log(`No Time Working Days: ${noTimeWorkingDays}`);
 }
 
 // UC7(A)
