@@ -74,7 +74,7 @@ function wageTillACondition() {
     console.log(`UC7(D) - First Time Full Time Wage: ${showFirstFullTime(mapOfDayAndWage)}`);
     console.log(`UC7(E) - Validating full time wages array: ${fullTimeArr.every(validateFullTimeWage)}`);
     console.log(`UC7(F) - Checking if there are some part time wages: ${mapOfDayAndWage.some(checkForPartTimeWage)}`);
-    console.log(`UC7(G) - Finding the number of days employee worked: ${numberOfDays}`);
+    console.log(`UC7(G) - Finding the number of days employee worked: ${numberOfDays}`); 
 }
 
 // UC7(A)
