@@ -68,8 +68,9 @@ function wageTillACondition() {
 
     console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
-    console.log(`UC7(B) : ${mapOfDayAndWage}`);
-    console.log(`UC7(C) : ${showFullTime(mapOfDayAndWage)}`);
+    console.log(`UC7(B) - Map Of Days And Wages: ${mapOfDayAndWage}`);
+    console.log(`UC7(C) - All Full Time Wages: ${showFullTime(mapOfDayAndWage)}`);
+    console.log(`UC7(D) - First Time Full Time Wage: ${showFirstFullTime(mapOfDayAndWage)}`);
 }
 
 // UC7(A)
@@ -97,6 +98,15 @@ function showFullTime(empWagesArr) {
         return (val.includes("160"));
     });
     return filtered;
+}
+
+// UC7(D)
+// function to find first day with full time
+function showFirstFullTime(empWagesArr) {
+    let first =  empWagesArr.find((val) => {
+        return (val.includes("160"));
+    });
+    return first;
 }
 
 
