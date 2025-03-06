@@ -65,12 +65,14 @@ function wageTillACondition() {
     }
     let totalWage = totalWageCalculator(empWagesArr); // UC7(A)
     let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
+    let fullTimeArr = showFullTime(mapOfDayAndWage); // UC7(C)
 
     console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
     console.log(`UC7(B) - Map Of Days And Wages: ${mapOfDayAndWage}`);
-    console.log(`UC7(C) - All Full Time Wages: ${showFullTime(mapOfDayAndWage)}`);
+    console.log(`UC7(C) - All Full Time Wages: ${fullTimeArr}`);
     console.log(`UC7(D) - First Time Full Time Wage: ${showFirstFullTime(mapOfDayAndWage)}`);
+    console.log(`UC7(E) - Validating full time wages array: ${fullTimeArr.every(validateFullTimeWage)}`);
 }
 
 // UC7(A)
@@ -107,6 +109,12 @@ function showFirstFullTime(empWagesArr) {
         return (val.includes("160"));
     });
     return first;
+}
+
+// UC7(E)
+// function to check if every element of full time wage array is truely holding full time wage
+function validateFullTimeWage(wage) {
+    return wage.includes("160");
 }
 
 
