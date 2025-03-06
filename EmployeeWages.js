@@ -109,6 +109,32 @@ function wageTillACondition() {
 
     // UC10
     console.log(dailyHrsAndWagesArr);
+
+    // UC11
+    totalWage = totalWageCalculatorUC11(dailyHrsAndWagesArr);
+    totalWorkingHours = totalWorkingHoursCalculatorUC11(dailyHrsAndWagesArr);
+
+    console.log(`UC11 Wage: $${totalWage}`);
+    console.log(`UC11 Working Hours: ${totalWorkingHours}`);
+
+    // showing full working days using foreach
+    console.log("fullTimeWorkingDays:")
+    fullTimeWorkingDays.forEach((val) => {
+        console.log(`Day: ${val}`);
+    });
+
+    // Showing Part working days using Map by reducing to String Array
+    console.log("partTimeWorkingDays:")
+    let stringArr = partTimeWorkingDays.map((val) => {
+        return `Day: ${val}`;
+    });
+    console.log(stringArr);
+
+    // showing no working days only using Map function
+    console.log("noTimeWorkingDays: ")
+    noTimeWorkingDays.map((val) => {
+        console.log(`Day: ${val}`);
+    })
 }
 
 // UC7(A)
@@ -159,6 +185,23 @@ function checkForPartTimeWage(wage) {
     return wage.includes("80");
 }
 
+// UC11 -> function to calculate total wage 
+function totalWageCalculatorUC11(dailyHrsAndWagesArr) {
+    let totalWage = 0;
+    dailyHrsAndWagesArr.forEach((val) => {
+        totalWage += val.wage;
+    });
+    return totalWage;
+}
+
+// UC11 -> function to calculate total working hours
+function totalWorkingHoursCalculatorUC11(dailyHrsAndWagesArr) {
+    let totalHours = 0;
+    dailyHrsAndWagesArr.forEach((val) => {
+       totalHours += val.hours;
+    });
+    return totalHours;
+}
 
 // UC1
 checkPresentOrAbsent();
