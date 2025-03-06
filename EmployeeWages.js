@@ -49,12 +49,14 @@ function wageForAMonth(workingDays) {
     console.log(`Total Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
 } 
 
-// UC5 and UC6
+// UC5, UC6, UC7, and UC8 
 // function to Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
 function wageTillACondition() {
     let numberOfDays=0;
     let totalWorkingHours=0;
     let empWagesArr = new Array(); // array to store daily wages
+    
+    let empWagesMap = new Map(); // map to Store the Day and the Daily Wage // UC8
 
     while(numberOfDays<20 && totalWorkingHours<=160){
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
@@ -62,6 +64,7 @@ function wageTillACondition() {
         totalWorkingHours += dayHours;
         empWagesArr.push(dayHours * 20); // UC6 // assuming wage per hour is $20
         numberOfDays++;
+        empWagesMap.set(numberOfDays, dayHours * 20); // UC8
     }
     let totalWage = totalWageCalculator(empWagesArr); // UC7(A)
     let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
@@ -75,6 +78,7 @@ function wageTillACondition() {
     console.log(`UC7(E) - Validating full time wages array: ${fullTimeArr.every(validateFullTimeWage)}`);
     console.log(`UC7(F) - Checking if there are some part time wages: ${mapOfDayAndWage.some(checkForPartTimeWage)}`);
     console.log(`UC7(G) - Finding the number of days employee worked: ${numberOfDays}`); 
+    console.log(empWagesMap); // UC8
 }
 
 // UC7(A)
