@@ -58,6 +58,7 @@ function wageTillACondition() {
     let empWorkingHourArr = new Array(); // array to store daily working hours
     let empWagesMap = new Map(); // map to Store the Day and the Daily Wage // UC8
     let dailyHourMap = new Map(); // map to store daily hours
+    let dailyHrsAndWagesArr = new Array();
 
     while(numberOfDays<20 && totalWorkingHours<=160){
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
@@ -67,6 +68,14 @@ function wageTillACondition() {
         numberOfDays++;
         empWagesMap.set(numberOfDays, dayHours * 20); // UC8
         dailyHourMap.set(numberOfDays, dayHours); // UC9
+        // UC10
+        dailyHrsAndWagesArr.push(
+            {
+                day : numberOfDays,
+                hours : dayHours,
+                wage : dayHours*20,
+            }
+        )
     }
     let totalWage = totalWageCalculator(empWagesArr); // UC7(A) // UC9 -> totalWageCalculator(empWagesArr) demonstrates arrow function
     let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
@@ -97,6 +106,9 @@ function wageTillACondition() {
     console.log(`Full Time Working Days: ${fullTimeWorkingDays}`);
     console.log(`Part Time Working Days: ${partTimeWorkingDays}`);
     console.log(`No Time Working Days: ${noTimeWorkingDays}`);
+
+    // UC10
+    console.log(dailyHrsAndWagesArr);
 }
 
 // UC7(A)
