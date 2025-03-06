@@ -63,13 +63,15 @@ function wageTillACondition() {
         empWagesArr.push(dayHours * 20); // UC6 // assuming wage per hour is $20
         numberOfDays++;
     }
-    let totalWage = totalWageCalculator(empWagesArr); // UC7
+    let totalWage = totalWageCalculator(empWagesArr); // UC7(A)
+    let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
 
-    console.log(`UC5 & UC7 - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
+    console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
     console.log(`UC6 - Daily wages: ${empWagesArr}`);
+    console.log(`UC7(B) : ${mapOfDayAndWage}`);
 }
 
-// UC7
+// UC7(A)
 // function to calculator using daily wages array
 function totalWageCalculator(empWagesArr) {
     let totalWage=0;
@@ -78,6 +80,15 @@ function totalWageCalculator(empWagesArr) {
     });
     return totalWage;
 }
+
+// UC7(B)
+let day=0;
+// function to map days with wages
+function mapDayWithWage(wage) {
+    day++;
+    return day + " = " + wage;
+}
+
 
 // UC1
 checkPresentOrAbsent();
