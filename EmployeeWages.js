@@ -54,8 +54,6 @@ function wageForAMonth(workingDays) {
 function wageTillACondition() {
     let numberOfDays=0;
     let totalWorkingHours=0;
-    let empWagesArr = new Array(); // array to store daily wages
-    let empWorkingHourArr = new Array(); // array to store daily working hours
     let empWagesMap = new Map(); // map to Store the Day and the Daily Wage // UC8
     let dailyHourMap = new Map(); // map to store daily hours
     let dailyHrsAndWagesArr = new Array();
@@ -63,8 +61,6 @@ function wageTillACondition() {
     while(numberOfDays<20 && totalWorkingHours<=160){
         let workingTime = Math.floor(Math.random()*1000) % 3 == 0 ? "No Time" :Math.floor(Math.random()*1000) % 3 == 0 ? "Part Time" : "Full Time";
         let dayHours = getWorkingHours(workingTime);
-        empWagesArr.push(dayHours * 20); // UC6 // assuming wage per hour is $20
-        empWorkingHourArr.push(dayHours); // UC9
         numberOfDays++;
         empWagesMap.set(numberOfDays, dayHours * 20); // UC8
         dailyHourMap.set(numberOfDays, dayHours); // UC9
@@ -77,25 +73,48 @@ function wageTillACondition() {
             }
         )
     }
-    let totalWage = totalWageCalculator(empWagesArr); // UC7(A) // UC9 -> totalWageCalculator(empWagesArr) demonstrates arrow function
-    let mapOfDayAndWage = empWagesArr.map((wage) => mapDayWithWage(wage)) // UC7(B)
-    let fullTimeArr = showFullTime(mapOfDayAndWage); // UC7(C)
-    totalWorkingHours = empWorkingHourArr.reduce((daily, total) => total+daily, 0); // UC9
 
-    console.log(`UC5 & UC7(A) - Total Days: ${numberOfDays}, Total Working Hours: ${totalWorkingHours}, Total Wage: $${totalWage}`);
-    console.log(`UC6 - Daily wages: ${empWagesArr}`);
-    console.log(`UC7(B) - Map Of Days And Wages: ${mapOfDayAndWage}`);
-    console.log(`UC7(C) - All Full Time Wages: ${fullTimeArr}`);
-    console.log(`UC7(D) - First Time Full Time Wage: ${showFirstFullTime(mapOfDayAndWage)}`);
-    console.log(`UC7(E) - Validating full time wages array: ${fullTimeArr.every(validateFullTimeWage)}`);
-    console.log(`UC7(F) - Checking if there are some part time wages: ${mapOfDayAndWage.some(checkForPartTimeWage)}`);
-    console.log(`UC7(G) - Finding the number of days employee worked: ${numberOfDays}`); 
-    console.log(empWagesMap); // UC8
+    let mapOfDayAndWage = dailyHrsAndWagesArr.map((wage) => mapDayWithWage(wage)) // UC12
 
-    // UC9 -> Show the full workings days, part working days and no working days
+    // UC12(A)
+    let totalWage = totalWageCalculator(dailyHrsAndWagesArr);
+
+    // UC12(B)
+    console.log("Employee Daily Wages Map:");
+    empWagesMap.forEach((val,key) => {
+        console.log(key + " : " + val);
+    });
+
+    // UC12(C)
+    let fullTimeArr = showFullTime(mapOfDayAndWage); 
+    console.log("fullTimeArr : ");
+    console.log(fullTimeArr);
+
+    // UC12(D)
+    console.log("First Occurrence When Full Time Wage Was Earned:"); 
+    console.log(showFirstFullTime(mapOfDayAndWage)); 
+
+    totalWorkingHours = totalWorkingHoursCalculator(dailyHrsAndWagesArr);
+    
+    // UC12(E)
     let fullTimeWorkingDays = new Array();
+    console.log("Validating Full Time Working Days: ");
+    console.log(fullTimeWorkingDays.every(validateFullTimeWage)); 
+    
+    // UC12(F)
+    console.log("Checking if there are any part time wages:")
+    console.log(mapOfDayAndWage.some(checkForPartTimeWage)); 
+    
+    // UC12(G)
+    console.log(numberOfDays); 
+
+    console.log("mapOfDayAndWage :"); // UC12
+    console.log(mapOfDayAndWage);
+    
+    // UC9 -> Show the full workings days, part working days and no working days
     let partTimeWorkingDays = new Array();
     let noTimeWorkingDays = new Array();
+
 
     dailyHourMap.forEach((val, key) => {
         if(val == 8) fullTimeWorkingDays.push(key);
@@ -103,18 +122,11 @@ function wageTillACondition() {
         else noTimeWorkingDays.push(key);
     });
 
-    console.log(`Full Time Working Days: ${fullTimeWorkingDays}`);
-    console.log(`Part Time Working Days: ${partTimeWorkingDays}`);
-    console.log(`No Time Working Days: ${noTimeWorkingDays}`);
-
     // UC10
+    console.log("dailyHrsAndWagesArr: ");
     console.log(dailyHrsAndWagesArr);
 
-    // UC11
-    totalWage = totalWageCalculatorUC11(dailyHrsAndWagesArr);
-    totalWorkingHours = totalWorkingHoursCalculatorUC11(dailyHrsAndWagesArr);
-
-    console.log(`UC11 Wage: $${totalWage}`);
+    console.log(`Total Wage: $${totalWage}`); // UC12
     console.log(`UC11 Working Hours: ${totalWorkingHours}`);
 
     // showing full working days using foreach
@@ -134,25 +146,12 @@ function wageTillACondition() {
     console.log("noTimeWorkingDays: ")
     noTimeWorkingDays.map((val) => {
         console.log(`Day: ${val}`);
-    })
-}
-
-// UC7(A)
-// function to calculator using daily wages array
-function totalWageCalculator(empWagesArr) {
-    let totalWage=0;
-    empWagesArr.forEach(element => {
-        totalWage += element;
     });
-    return totalWage;
 }
 
-// UC7(B)
-let day=0;
 // function to map days with wages
 function mapDayWithWage(wage) {
-    day++;
-    return day + " = " + wage;
+    return "Day: " + wage.day + ", Wage: " + wage.wage;
 }
 
 // UC7(C)
@@ -185,8 +184,8 @@ function checkForPartTimeWage(wage) {
     return wage.includes("80");
 }
 
-// UC11 -> function to calculate total wage 
-function totalWageCalculatorUC11(dailyHrsAndWagesArr) {
+// UC11 & UC12 -> function to calculate total wage 
+function totalWageCalculator(dailyHrsAndWagesArr) {
     let totalWage = 0;
     dailyHrsAndWagesArr.forEach((val) => {
         totalWage += val.wage;
@@ -194,8 +193,8 @@ function totalWageCalculatorUC11(dailyHrsAndWagesArr) {
     return totalWage;
 }
 
-// UC11 -> function to calculate total working hours
-function totalWorkingHoursCalculatorUC11(dailyHrsAndWagesArr) {
+// UC11 & UC12 -> function to calculate total working hours
+function totalWorkingHoursCalculator(dailyHrsAndWagesArr) {
     let totalHours = 0;
     dailyHrsAndWagesArr.forEach((val) => {
        totalHours += val.hours;
